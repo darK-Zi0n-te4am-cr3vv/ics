@@ -6,12 +6,31 @@
 #define VECTOR_START	0x2000
 #define LJMP			0x02
 
-VOID SetVector(BYTE vecId, Vector vector)
+#define LCALL			0x12
+#define RETI			0x32
+
+VOID __SetVector(BYTE vecId, Vector vector)
 {
 	ADDR addr = VECTOR_START + vecId * 8 + 3;
+	XADDR v = (XADDR)vector;
 	
 	*((BYTE XDATA *)addr++) = LJMP;
-	*((ADDR XDATA *)addr) = (ADDR)vector;
+	*((BYTE XDATA *)addr++) = (BYTE)(v >> 8);
+	*((BYTE XDATA *)addr) = (BYTE)(v & 0xff);
+}
+
+/* EXPERIMENTAL */
+
+VOID SetVector(BYTE vecId, Vector vector) /* producing code like this: lcall Vector; reti */
+{
+	BYTE XDATA *addr = (BYTE XDATA *)(VECTOR_START + (vecId << 3) + 3);
+	XADDR v = (XADDR)vector;
+	
+	*addr++ = LCALL;
+	*addr++ = (BYTE)(v >> 8);
+	*addr++ = (BYTE)(v & 0xff);
+	
+	*addr = RETI;
 }
 
 VOID SetInterruptsMode(BYTE mode)

@@ -31,18 +31,18 @@ SRC_DIR = SRC
 all: lab
 
 clean:
-	rm *.hex
-	rm *.bin
-	rm *.map
-	rm *.mem
-	rm *.lnk
-	#rm pm3p_*.txt
-	#rm com?_log.txt
-	rm $(SRC_DIR)\*.asm
-	rm $(SRC_DIR)\*.rel
-	rm $(SRC_DIR)\*.rst
-	rm $(SRC_DIR)\*.sym
-	rm $(SRC_DIR)\*.lst 
+	del *.hex
+	del *.bin
+	del *.map
+	del *.mem
+	del *.lnk
+	del pm3p_*.txt
+	del com?_log.txt
+	del $(SRC_DIR)\*.asm
+	del $(SRC_DIR)\*.rel
+	del $(SRC_DIR)\*.rst
+	del $(SRC_DIR)\*.sym
+	del $(SRC_DIR)\*.lst 
 
 load:
 	$(M3P) lfile load.m3p

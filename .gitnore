@@ -1,0 +1,12 @@
+*.hex
+*.bin
+*.map
+*.mem
+*.lnk
+pm3p_*.txt
+com?_log.txt
+*.asm
+*.rel
+*.rst
+*.sym
+*.lst 
