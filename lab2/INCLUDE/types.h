@@ -9,6 +9,9 @@
 
 #define VOID void
 
+#define STATIC static
+#define PRIVATE static
+
 /* 8 bit types */
 #define BYTE unsigned char
 #define SBYTE signed char

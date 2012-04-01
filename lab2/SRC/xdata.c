@@ -1,6 +1,4 @@
-/*
-	xdata.c
-*/
+/* xdata.c */
 
 #include "aduc812.h" 
 #include "types.h" 

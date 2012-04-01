@@ -9,10 +9,16 @@
 #include "led.h"
 
 
+PRIVATE VOID TmrIsr()
+{
+	/* nothing yet */
+	/* TODO: test experimental SetVector implementation */
+}
+
 VOID InitSound()
 {
-	//EnableIntr(VC_TMR1);
-	//SetVector(VC_TMR1, TMR_Isr);
+	EnableIntr(VC_TMR1);
+	SetVector(VC_TMR1, TmrIsr);
 }
 
 VOID PlayNote(Note *note)
@@ -42,8 +48,6 @@ VOID PlayNote(Note *note)
 			else WriteSoundBits(LastSnd = 7);
 		}
 	}
-	
-	
 	
 	TR1 = 0;
 }

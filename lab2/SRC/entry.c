@@ -1,7 +1,7 @@
 /* entry.c */
 
-#include "types.h" /* заголовочный файл прееопределений стандартных типов */
-#include "led.h" /* заголовочный файл дравера светодиодной линейки */
+#include "types.h" 
+#include "led.h" 
 #include "music.h"
 #include "speaker.h"
 #include "vector.h"
