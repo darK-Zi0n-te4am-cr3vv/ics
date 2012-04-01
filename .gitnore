@@ -9,4 +9,5 @@ com?_log.txt
 *.rel
 *.rst
 *.sym
-*.lst 
+*.lst
+make.exe 
