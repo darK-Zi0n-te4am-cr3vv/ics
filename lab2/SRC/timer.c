@@ -3,6 +3,9 @@
 #include "types.h"
 #include "ccdef.h"
 
+#include "timer.h"
+#include "vector.h"
+
 VOID SetTimerMode(BYTE timer, BYTE mode)
 {
 	switch (timer)
@@ -14,19 +17,6 @@ VOID SetTimerMode(BYTE timer, BYTE mode)
 		case TM_TMR1:
 			NOINTR({ TMOD &= 0x0f; TMOD |= (mode << 4); });
 		break;
-		
-		default:
-			/* oh shi- */
-		break;
-	}
-}
-
-BYTE GetTimerMode(BYTE timer)
-{
-	switch (timer)
-	{
-		case TM_TMR0: return TMOD & 0x0f;
-		case TM_TMR1: return (TMOD & 0xf0) >> 4;
 		
 		default:
 			/* oh shi- */
@@ -104,6 +94,19 @@ VOID SetTimer8bitSplitLo(BYTE timer, BYTE val)
 	{
 		case TM_TMR0: TL0 = val; break;
 		case TM_TMR1: TL1 = val; break;
+		
+		default:
+			/* oh shi- */
+		break;
+	}
+}
+
+VOID SetTimerIsrHandler(BYTE timer, Vector isr)
+{
+	switch (timer)
+	{
+		case TM_TMR0: SetVector(VC_TMR0, isr); break;
+		case TM_TMR1: SetVector(VC_TMR1, isr); break;
 		
 		default:
 			/* oh shi- */

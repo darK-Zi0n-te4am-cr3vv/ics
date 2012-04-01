@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------
 # Имя проекта
 
-NAME	= lab1
+NAME	= lab2
 
 # Настройки компилятора и линкера
 
@@ -55,13 +55,14 @@ $(SRC_DIR)/ena.c \
 $(SRC_DIR)/speaker.c \
 $(SRC_DIR)/vector.c \
 $(SRC_DIR)/music.c \
+$(SRC_DIR)/timer.c \
 $(SRC_DIR)/xdata.c 
 
 LIST_OBJ = $(LIST_SRC:.c=.rel)
 
 lab : $(LIST_OBJ) makefile
-	$(CC) $(LIST_OBJ) -o lab1.hex $(LFLAGS)
-	$(M3P) hb166 lab1.hex lab1.bin bye
+	$(CC) $(LIST_OBJ) -o lab2.hex $(LFLAGS)
+	$(M3P) hb166 lab2.hex lab2.bin bye
 	
 $(LIST_OBJ) : %.rel : %.c makefile
 	$(CC) -c $(CFLAGS) $< -o $@  
