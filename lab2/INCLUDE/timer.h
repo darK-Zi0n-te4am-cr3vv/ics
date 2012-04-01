@@ -27,6 +27,8 @@
 #define TM_TMR0			0
 #define TM_TMR1			1
 
+/* public routines */
+
 VOID SetTimerMode(BYTE timer, BYTE mode);
 
 VOID ReloadTimer16bit(BYTE timer, USHORT val);
@@ -36,5 +38,9 @@ VOID SetTimer8bitSplitHi(BYTE timer, BYTE val);
 VOID SetTimer8bitSplitLo(BYTE timer, BYTE val);
 
 VOID SetTimerIsrHandler(BYTE timer, Vector isr);
+
+VOID StopTimer(BYTE timer);
+VOID StartTimer(BYTE timer);
+
 
 #endif /* _TIMER_H_ */

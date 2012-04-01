@@ -1,10 +1,37 @@
 /* timer.c */
 
+#include "aduc812.h"
 #include "types.h"
 #include "ccdef.h"
 
 #include "timer.h"
 #include "vector.h"
+
+VOID StartTimer(BYTE timer)
+{
+	switch (timer)
+	{
+		case TM_TMR0: TR0 = 1; break;
+		case TM_TMR1: TR1 = 1; break;
+		
+		default:
+			/* oh shi- */
+		break;
+	}
+}
+
+VOID StopTimer(BYTE timer)
+{
+	switch (timer)
+	{
+		case TM_TMR0: TR0 = 0; break;
+		case TM_TMR1: TR1 = 0; break;
+		
+		default:
+			/* oh shi- */
+		break;
+	}
+}
 
 VOID SetTimerMode(BYTE timer, BYTE mode)
 {
@@ -105,8 +132,8 @@ VOID SetTimerIsrHandler(BYTE timer, Vector isr)
 {
 	switch (timer)
 	{
-		case TM_TMR0: SetVector(VC_TMR0, isr); break;
-		case TM_TMR1: SetVector(VC_TMR1, isr); break;
+		case TM_TMR0: SetVector(VC_TMR0, isr); EnableIntr(VC_TMR0); break;
+		case TM_TMR1: SetVector(VC_TMR1, isr); EnableIntr(VC_TMR1); break;
 		
 		default:
 			/* oh shi- */

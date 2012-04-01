@@ -6,8 +6,8 @@
 #include "types.h"
 #include "music.h"
 
-VOID PlayNote(Note *note);
-VOID PlayTune(Note *tune);
+VOID PlayNote(Note *note, BYTE volume);
+VOID PlayTune(Note *tune, BYTE volume);
 VOID InitSound();
 
 #endif /* _SPEAKER_H_ */
