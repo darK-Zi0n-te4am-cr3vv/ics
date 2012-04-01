@@ -1,14 +1,11 @@
 #ifndef _TYPES_H_
 #define _TYPES_H_
 
- /* заголовочный файл прееопределений стандартных типов */
-
 #define VOLATILE volatile
 #define TYPEDEF typedef
  
 #define XDATA xdata
 #define CONST const
-
 
 #define VOID void
 
@@ -31,10 +28,6 @@
 /* machine-dependent */
 #define WORD BYTE
 #define XADDR USHORT
-#define ADDR XADDR
-TYPEDEF VOID XDATA *XPTR; 
- 
-
-#define INTERRUPT  __interrupt
+#define ADDR XADDR 
 
 #endif /* _TYPES_H_ */

@@ -32,8 +32,6 @@ USHORT GetToneTMRConst(SHORT tone)
 #define SXN_TMR_CONST 125000L
 
 UINT GetValueTMRConst(USHORT value)
-{
-	/* только для 120 BPM */
-	
+{	
 	return value * SXN_TMR_CONST;
 }

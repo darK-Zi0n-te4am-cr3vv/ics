@@ -1,9 +1,10 @@
+п»ї/* led.c */
+
 #include "xdata.h"
 #include "types.h"
 
-#define LED_REGISTER	0x0007 /* адрес регистра светодиодной линейки */
+#define LED_REGISTER	0x0007 
 
-/* записывает значение в регистр светодиодов */
 VOID WriteLed(BYTE led)
 {
 	WriteMax(LED_REGISTER, led);
