@@ -10,4 +10,5 @@ com?_log.txt
 *.rst
 *.sym
 *.lst
-make.exe 
+make.exe
+Thumbs.db
