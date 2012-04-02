@@ -17,7 +17,7 @@
 
     T_RAM
 
-    0x2100       write 	lab1.bin
+    0x2100       write 	lab2.bin
     0x2100       jmp
 
     0 term

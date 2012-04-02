@@ -9,7 +9,7 @@
 #include "led.h"
 #include "timer.h"
 
-PRIVATE BYTE SndTmr, Spk, LastVol, Volume;
+PRIVATE BYTE SndTmr, LastVol, Volume;
 PRIVATE UINT ValueTmrConst, CurrentTicks;
 PRIVATE USHORT ToneTmrConst;
 
@@ -39,6 +39,7 @@ VOID InitSound(BYTE timer)
 	
 	SetTimerMode(SndTmr, TMM_16BIT);
 	SetTimerIsrHandler(SndTmr, TmrIsr);
+	SetTimerIsrPriority(SndTmr, IP_HIGH);
 }
 
 VOID PlayNote(Note *note, BYTE volume)
@@ -46,44 +47,12 @@ VOID PlayNote(Note *note, BYTE volume)
 	ToneTmrConst = GetToneTMRConst(note->Tone);
 	ValueTmrConst = GetValueTMRConst(note->Value);
 	CurrentTicks = 0;
-	Spk = note->Tone != TN_PAUSE;
-	Volume = volume;
+	Volume = note->Tone != TN_PAUSE ? volume : 0;
 	
 	NoteDone = 0;
 	StartTimer(SndTmr);
 	while(!NoteDone);
 	
-}
-
-VOID __PlayNote(Note *note, BYTE volume)
-{
-	UINT ToneTmrConst = GetToneTMRConst(note->Tone);
-	UINT ValueTmrConst = GetValueTMRConst(note->Value);
-	UINT CurrentTicks = 0;
-	BYTE LastSnd = 0;
-	BYTE spk = note->Tone != TN_PAUSE;
-	
-	TMOD = 0x10;
-	
-	TR1 = 1;
-	
-	TL1 = 0x00;
-	TH1 = 0x00;
-	
-	while ((CurrentTicks += ToneTmrConst) < ValueTmrConst)
-	{
-		while ((TH1 << 8) + TL1 < ToneTmrConst);
-		TL1 = 0x00;
-		TH1 = 0x00;
-	
-		if (spk)
-		{
-			if (LastSnd) WriteSoundBits(LastSnd = 0);
-			else WriteSoundBits(LastSnd = volume);
-		}
-	}
-	
-	TR1 = 0;
 }
 
 VOID PlayTune(Note *tune, BYTE volume)

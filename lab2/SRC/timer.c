@@ -38,11 +38,11 @@ VOID SetTimerMode(BYTE timer, BYTE mode)
 	switch (timer)
 	{
 		case TM_TMR0:
-			NOINTR({ TMOD &= 0xf0; TMOD |= mode; });
+			NOINTR({ TMOD = (TMOD & 0xf0) | mode; });
 		break;
 		
 		case TM_TMR1:
-			NOINTR({ TMOD &= 0x0f; TMOD |= (mode << 4); });
+			NOINTR({ TMOD = (TMOD & 0x0f) | (mode << 4); });
 		break;
 		
 		default:
@@ -134,6 +134,19 @@ VOID SetTimerIsrHandler(BYTE timer, Vector isr)
 	{
 		case TM_TMR0: SetVector(VC_TMR0, isr); EnableIntr(VC_TMR0); break;
 		case TM_TMR1: SetVector(VC_TMR1, isr); EnableIntr(VC_TMR1); break;
+		
+		default:
+			/* oh shi- */
+		break;
+	}
+}
+
+VOID SetTimerIsrPriority(BYTE timer, BYTE pri)
+{	
+	switch (timer)
+	{
+		case TM_TMR0: SetIntrPriority(VC_TMR0, pri); break;
+		case TM_TMR1: SetIntrPriority(VC_TMR1, pri); break;
 		
 		default:
 			/* oh shi- */

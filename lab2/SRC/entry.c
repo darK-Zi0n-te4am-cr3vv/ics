@@ -6,6 +6,7 @@
 #include "speaker.h"
 #include "vector.h"
 #include "aduc812.h"
+#include "timer.h"
 
 #include "ena.h"
 
@@ -41,7 +42,7 @@ CONST Note tune[] = {
 
 /* Jane Air - Вулканы */
 
-CONST Note __tune[] = {
+CONST Note  __tune[] = {
 	NOTE(8, 4),
 	NOTE(7+12, 2),
 	NOTE(12+5+12, 4),
@@ -57,10 +58,21 @@ CONST Note __tune[] = {
 	TUNE_END	
 };
 
+PRIVATE BYTE Int0Count = 0; 
+PRIVATE VOID Int0Isr()
+{
+	Int0Count++;
+	WriteLed(Int0Count);
+}
+
 VOID main()
 {	
 	EnableAllIntrs();
-	InitSound();
+	InitSound(TM_TMR1);
 	
-	for (;;) PlayTune(tune);
+	SetVector(VC_INT1, Int0Isr);
+	SetIntrPriority(VC_INT1, IP_LOW);
+	EnableIntr(VC_INT1);
+	
+	for (;;) PlayTune(tune, 7);
 }

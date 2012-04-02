@@ -2,7 +2,7 @@
 
 #include "types.h"
 
-#define TONE_TMR_CONST(freq) ((USHORT)(125000L / (freq)))
+#define TONE_TMR_CONST(freq) ((USHORT)(1000000L / (freq)))
 
 USHORT TonesTmrConsts[] = {
 	TONE_TMR_CONST(262), /* C  */
@@ -29,7 +29,7 @@ USHORT GetToneTMRConst(SHORT tone)
 	return tmrConst;
 }
 
-#define SXN_TMR_CONST 125000L
+#define SXN_TMR_CONST 100000L
 
 UINT GetValueTMRConst(USHORT value)
 {	

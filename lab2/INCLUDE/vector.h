@@ -15,10 +15,15 @@
 #define EM_ENABLED 1
 #define EM_DISABLED 0
 
+#define IP_HIGH		0
+#define IP_LOW		1
+
 
 FUNCPTR(VOID, Vector, ());
 
 VOID SetVector(BYTE vecId, Vector vector);
+
+VOID SetIntrPriority(BYTE irq, BYTE pri);
 
 VOID EnableIntr(BYTE intr);
 VOID DisableIntr(BYTE intr);

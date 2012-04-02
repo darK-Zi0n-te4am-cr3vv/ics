@@ -8,6 +8,6 @@
 
 VOID PlayNote(Note *note, BYTE volume);
 VOID PlayTune(Note *tune, BYTE volume);
-VOID InitSound();
+VOID InitSound(BYTE timer);
 
 #endif /* _SPEAKER_H_ */

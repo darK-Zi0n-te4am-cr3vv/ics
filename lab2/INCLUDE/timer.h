@@ -18,7 +18,6 @@
 #define TMM_MODE_MASK	0x03
 
 
-
 #define TMM_COUNTER		0x04
 #define TMM_GATE		0x08
 
@@ -38,6 +37,7 @@ VOID SetTimer8bitSplitHi(BYTE timer, BYTE val);
 VOID SetTimer8bitSplitLo(BYTE timer, BYTE val);
 
 VOID SetTimerIsrHandler(BYTE timer, Vector isr);
+VOID SetTimerIsrPriority(BYTE timer, BYTE pri);
 
 VOID StopTimer(BYTE timer);
 VOID StartTimer(BYTE timer);
