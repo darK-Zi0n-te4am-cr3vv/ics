@@ -56,3 +56,4 @@ VOID DisableAllIntrs()
 {
 	SetInterruptsMode(EM_DISABLED);
 }
+
