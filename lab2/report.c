@@ -10,7 +10,8 @@
 #define STRUCT(name, fields) typedef struct  fields  name
 #define FUNCPTR(rtype, name, args) typedef rtype (* name ) args
 
-#endif /* _CCDEF_H_ */#ifndef _DIP_H_
+#endif /* _CCDEF_H_ */
+#ifndef _DIP_H_
 #define _DIP_H_
 
 /* заголовочный файл дравера дип переключателей */
@@ -20,7 +21,8 @@
 /* считывает значение из регистра дип переключателя  */
 BYTE ReadDip();
 
-#endif/* ena.h */
+#endif
+/* ena.h */
 
 #ifndef _ENA_H_
 #define _ENA_H_
@@ -61,7 +63,8 @@ VOID WriteSoundBits(BYTE bits);
 
 VOID WriteLed(BYTE led);
 
-#endif /* _LED_H_ *//* 
+#endif /* _LED_H_ */
+/* 
 	music.h 
 	(c) #D@rK_Zi0n_+e4@m_cr3vv; 2012
 */
@@ -122,7 +125,8 @@ STRUCT(Note, {
 USHORT GetToneTMRConst(SHORT tone);
 UINT GetValueTMRConst(USHORT value);
 
-#endif /* _MUSIC_H_ *//* speaker.h */
+#endif /* _MUSIC_H_ */
+/* speaker.h */
 
 #ifndef _SPEAKER_H_
 #define _SPEAKER_H_
@@ -134,7 +138,8 @@ VOID PlayNote(Note *note, BYTE volume);
 VOID PlayTune(Note *tune, BYTE volume);
 VOID InitSound(BYTE timer);
 
-#endif /* _SPEAKER_H_ *//* timer.h */
+#endif /* _SPEAKER_H_ */
+/* timer.h */
 
 #ifndef _TIMER_H_
 #define _TIMER_H_
@@ -179,7 +184,8 @@ VOID StopTimer(BYTE timer);
 VOID StartTimer(BYTE timer);
 
 
-#endif /* _TIMER_H_ */#ifndef _TYPES_H_
+#endif /* _TIMER_H_ */
+#ifndef _TYPES_H_
 #define _TYPES_H_
 
 #define VOLATILE volatile
@@ -249,7 +255,8 @@ VOID DisableAllIntrs();
 
 
  
-#endif /* _VECTOR_H_ *//* xdata.h */
+#endif /* _VECTOR_H_ */
+/* xdata.h */
 
 #ifndef _XDATA_H_
 #define _XDATA_H_
@@ -264,7 +271,8 @@ BYTE ReadXData(BYTE page, USHORT offset);
 VOID WriteMax(USHORT offset, BYTE byte);
 BYTE ReadMax(USHORT offset);
 
-#endif /* _XDATA_H_ *//* dip.c */
+#endif /* _XDATA_H_ */
+/* dip.c */
 
 #include "xdata.h"
 #include "types.h"
@@ -396,7 +404,8 @@ VOID main()
 	EnableIntr(VC_INT1);
 	
 	for (;;) PlayTune(tune, 7);
-}п»ї/* led.c */
+}
+п»ї/* led.c */
 
 #include "xdata.h"
 #include "types.h"
@@ -442,7 +451,8 @@ USHORT GetToneTMRConst(SHORT tone)
 UINT GetValueTMRConst(USHORT value)
 {	
 	return value * SXN_TMR_CONST;
-}/* speaker.c */
+}
+/* speaker.c */
 
 #include "aduc812.h"
 #include "types.h"
@@ -504,7 +514,8 @@ VOID PlayTune(Note *tune, BYTE volume)
 	do {
 		PlayNote(tune, volume);
 	} while ((++tune)->Value != TUNE_END_VALUE);
-}/* timer.c */
+}
+/* timer.c */
 
 #include "aduc812.h"
 #include "types.h"
@@ -658,7 +669,8 @@ VOID SetTimerIsrPriority(BYTE timer, BYTE pri)
 			/* oh shi- */
 		break;
 	}
-}/* vector.c */
+}
+/* vector.c */
 
 #include "types.h"
 #include "vector.h"
@@ -716,6 +728,7 @@ VOID DisableAllIntrs()
 {
 	SetInterruptsMode(EM_DISABLED);
 }
+
 /* xdata.c */
 
 #include "aduc812.h" 
