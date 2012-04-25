@@ -5,8 +5,8 @@
 
 #include "aduc812.h" 
 #include "types.h"
+#include "nointr.h"
 
-#define NOINTR(code) { BYTE __old_EA = EA; EA = 0; { code ; } EA = __old_EA; }
 #define STRUCT(name, fields) typedef struct  fields  name
 #define FUNCPTR(rtype, name, args) typedef rtype (* name ) args
 
