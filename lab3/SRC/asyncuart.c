@@ -4,9 +4,6 @@
 PRIVATE Fifo RxFifo, TxFifo; 
 PRIVATE BOOL TransferNow = FALSE;
 
-BYTE cnt=  0;
-
-
 PRIVATE VOID UartInterruptHandler()
 {
 	BYTE tx;

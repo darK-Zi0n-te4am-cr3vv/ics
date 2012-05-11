@@ -7,11 +7,13 @@
 #define FIFO_SIZE 16
 #define FIFO_PTR_MASK (FIFO_SIZE - 1)
 
-typedef struct {
+
+STRUCT(Fifo, {
 	BYTE Buffer[FIFO_SIZE];
-	BYTE WPtr, RPtr;
+	BYTE WPtr;
+	BYTE RPtr;
 	BOOL IsEmpty;
-} Fifo;
+});
 
 
 BOOL TryReadFifo(Fifo *fifo, BYTE *b);

@@ -56,6 +56,7 @@ $(SRC_DIR)/speaker.c \
 $(SRC_DIR)/vector.c \
 $(SRC_DIR)/music.c \
 $(SRC_DIR)/timer.c \
+$(SRC_DIR)/nointr.c \
 $(SRC_DIR)/xdata.c 
 
 LIST_OBJ = $(LIST_SRC:.c=.rel)

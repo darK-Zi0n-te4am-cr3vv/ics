@@ -3,7 +3,7 @@
 
  /* заголовочный файл прееопределений стандартных типов */
 
-#define XDATA xdata
+#define XDATA __xdata
 
 #define VOID void
 

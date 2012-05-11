@@ -60,7 +60,6 @@ $(SRC_DIR)/uart.c \
 $(SRC_DIR)/syncuart.c \
 $(SRC_DIR)/asyncuart.c \
 $(SRC_DIR)/fifo.c \
-$(SRC_DIR)/parseint.c \
 $(SRC_DIR)/nointr.c \
 $(SRC_DIR)/xdata.c 
 

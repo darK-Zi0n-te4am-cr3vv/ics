@@ -50,6 +50,7 @@ load:
 LIST_SRC = \
 $(SRC_DIR)/entry.c \
 $(SRC_DIR)/led.c \
+$(SRC_DIR)/nointr.c \
 $(SRC_DIR)/dip.c \
 $(SRC_DIR)/xdata.c 
 
