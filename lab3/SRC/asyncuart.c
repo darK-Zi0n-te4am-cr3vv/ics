@@ -14,9 +14,6 @@ PRIVATE VOID UartInterruptHandler()
 	if (RI) 
 	{
 		TryWriteFifo(&RxFifo, SBUF);
-		
-		WriteLed(cnt++);
-		
 		RI = 0;
 	}
 	

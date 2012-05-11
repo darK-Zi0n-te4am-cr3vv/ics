@@ -5,33 +5,33 @@
 #include "nointr.h"
 #include "aduc812.h"
 
-#ifdef __xchangeIE__USE_ASSEMBER
+#ifdef __NOINTR_USE_ASSEMBER
 
-BYTE __xchangeIE(BYTE __ie) __naked
+__bit _testea_() __naked
 {
-	__ie; /* to avoid warning */
-	
-	_asm
-		push acc
-		
-		mov a, dpl /* dpl is 1st arg  */
-		xch a, ie  /* atomic exchange */
-		mov dpl, a /* dpl is return value */
-		
-		pop acc
-		
+	__asm 
+		jbc	_EA, 00001$
+		clr	c
 		ret
-	_endasm;
+		
+00001$:
+		setb c
+		ret
+		
+	__endasm;
 }
 
 #else
 
-BYTE __xchangeIE(BYTE ie)
+__bit _testea_() 
 {
-	BYTE oldIE = IE;
-	IE = ie;
+	if (EA) 
+	{
+		EA = 0;
+		return 1;
+	}
 	
-	return oldIE;
+	return 0;
 }
 
 #endif

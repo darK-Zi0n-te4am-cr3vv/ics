@@ -10,6 +10,7 @@
 typedef struct {
 	BYTE Buffer[FIFO_SIZE];
 	BYTE WPtr, RPtr;
+	BOOL IsEmpty;
 } Fifo;
 
 

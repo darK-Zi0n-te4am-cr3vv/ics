@@ -4,7 +4,7 @@
 #define VOLATILE volatile
 #define TYPEDEF typedef
  
-#define XDATA xdata
+#define XDATA __xdata
 #define CONST const
 
 #define VOID void
