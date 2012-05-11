@@ -7,7 +7,7 @@ NAME	= lab3
 
 CC      = sdcc
 CFLAGS  = -I./INCLUDE -c --stack-auto 
-LFLAGS  = --code-loc 0x2100 --xram-loc 0x6000 --stack-auto --stack-loc 0xA0 
+LFLAGS  = --code-loc 0x2100 --xram-loc 0xF000 --stack-auto --stack-loc 0x80 
 
 # Настройки системы автоинкремента версии сборки
 
@@ -58,6 +58,8 @@ $(SRC_DIR)/music.c \
 $(SRC_DIR)/timer.c \
 $(SRC_DIR)/uart.c \
 $(SRC_DIR)/syncuart.c \
+$(SRC_DIR)/asyncuart.c \
+$(SRC_DIR)/fifo.c \
 $(SRC_DIR)/parseint.c \
 $(SRC_DIR)/nointr.c \
 $(SRC_DIR)/xdata.c 

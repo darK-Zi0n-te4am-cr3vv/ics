@@ -39,4 +39,7 @@
 
 #define NULL ((VOID*)0)
 
+#define FALSE 0
+#define TRUE 1
+
 #endif /* _TYPES_H_ */

@@ -2,6 +2,7 @@
 
 #include "types.h"
 #include "vector.h"
+#include "led.h"
 
 #define VECTOR_START	0x2000 /* used on SDK 1.1; on original mcs-51/52 it is 0x0000, of course */
 #define VECTOR(vecid) (BYTE XDATA *)(VECTOR_START + (vecid << 3) + 3)

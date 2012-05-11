@@ -25,6 +25,7 @@
 #define UA_MPC				BIT(5) /* multi processor communication enabled */
 #define UA_REN				BIT(4) /* recieving enabled */
 
+
 VOID InitUart(BYTE speed, BYTE enirq);
 
 #endif /* _UART_H_ */

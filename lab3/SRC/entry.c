@@ -8,22 +8,37 @@
 
 #include "uart.h"
 #include "syncuart.h"
+#include "asyncuart.h"
+
+CONST CHAR _i2hex[] = "0123456789ABCDEF";
+
+#define K_ENTER 0x0D
 
 VOID Part1()
 {
-	InitSyncUart(BAUD_1200);
+	InitAsyncUart(BAUD_9600);
+	//WriteLed(IE);
 	
 	for (;;)
 	{
-		CHAR c = ReadUartSync();
-		
+		CHAR c = ReadUartAsync();
+		WriteLed(c);
+	
+		/*
 		WriteUartSync(c);
 		WriteUartSync(c - 1);
 		WriteUartSync(c - 2);
+		*/
+	
+		WriteUartAsync(c);	
+		//WriteUartAsync(_i2hex[c & 0x0f]);
 	}
 }
 
 VOID main()
 {	
+	EnableAllIntrs();	
+	//WriteLed(IE);
 	
+	Part1();
 }
