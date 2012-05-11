@@ -1,8 +1,11 @@
 #include "asyncuart.h"
 #include "led.h"
 
-PRIVATE XDATA Fifo RxFifo, TxFifo; 
+PRIVATE Fifo RxFifo, TxFifo; 
 PRIVATE BOOL TransferNow = FALSE;
+
+BYTE cnt=  0;
+
 
 PRIVATE VOID UartInterruptHandler()
 {
@@ -11,6 +14,9 @@ PRIVATE VOID UartInterruptHandler()
 	if (RI) 
 	{
 		TryWriteFifo(&RxFifo, SBUF);
+		
+		WriteLed(cnt++);
+		
 		RI = 0;
 	}
 	
@@ -20,12 +26,13 @@ PRIVATE VOID UartInterruptHandler()
 		if (TryReadFifo(&TxFifo, &tx)) 
 		{
 			SBUF = tx;
-			TI = 0;
 		}
 		else 
 		{
 			TransferNow = FALSE;
 		}
+		
+		TI = 0;
 	}	
 }
 
@@ -74,16 +81,13 @@ VOID InitAsyncUart(BYTE speed)
 VOID WriteUartAsync(CHAR c)
 {
 	while(!TryWriteUart(c));
-	//WriteLed(TryWriteUart(c) ? 0xaa : 0x11);
 }
 
 CHAR ReadUartAsync()
 {
 	CHAR c;
 	while(!TryReadUart(&c));
-	
-//	WriteLed(TryReadUart(&c) ? 0xaa : 0x11);
-	
+		
 	return c;
 }
 

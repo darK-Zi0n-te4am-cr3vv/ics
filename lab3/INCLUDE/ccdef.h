@@ -10,4 +10,6 @@
 #define STRUCT(name, fields) typedef struct  fields  name
 #define FUNCPTR(rtype, name, args) typedef rtype (* name ) args
 
+#define EXTERN extern 
+
 #endif /* _CCDEF_H_ */
