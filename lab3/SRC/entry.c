@@ -6,78 +6,94 @@
 
 #include "ena.h"
 
+#include "dip.h"
+
 #include "uart.h"
 #include "syncuart.h"
 #include "asyncuart.h"
 
-CONST CHAR _i2hex[] = "0123456789ABCDEF";
+#include <string.h>
+
+#include "strio.h"
+
+#define PART1_SWITCH 0x00
+#define PART2_SWITCH 0x01
 
 
-VOID Print(CHAR *s)
+PRIVATE VOID Part1()
 {
-	while (*s) WriteUartAsync(*s++);
+	CHAR c;
+	
+	InitSyncUart(BAUD_9600);
+	c = ReadUartSync();
+	
+	WriteUartSync(c - 0);
+	WriteUartSync(c - 1);
+	WriteUartSync(c - 2);
 }
 
-#define K_ENTER 0x0D
-#define K_BKSPACE 0x08
+#define STR_LENGTH 10
 
-
-VOID ReadStr(CHAR *str, SIZE maxlen)
+PRIVATE BOOL IsHex(CHAR c)
 {
-	SIZE cnt = 0;
+	return (c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f'); 
+}
+
+PRIVATE BYTE HexVal(CHAR c)
+{
+	return (c >= '0' && c <= '9') ? c - '0' :
+	(c >= 'a' && c <= 'f') ? c - 'a' + 10: c - 'A' + 10;
+}
+
+PRIVATE VOID PrintDec(BYTE n)
+{
+	BYTE i;
+	CHAR s[4];
 	
+    i = 0;
 	do {
-		CHAR c = ReadUartAsync();
-		
-		if (c == K_ENTER) 
-		{
-			break;
-		}
-		else if (c == K_BKSPACE && cnt)
-		{
-			str--;
-			cnt--;
-			
-			Print("\b \b");
-		}
-		else
-		{
-			*str++ = c;
-			cnt++;
-			
-			WriteUartAsync(c);
-		}
-		
-	} while (cnt <= maxlen);
+		s[i++] = (n % 10) + '0'; 
+    } while ((n /= 10) > 0);  
 
-	*str = '\0';
+	while (i--)
+	{
+		WriteUartAsync(s[i]);
+	}
 }
 
-
-VOID Part1()
+PRIVATE VOID Part2()
 {
-	CHAR str[10];
-	BYTE cnt = 0x00;
+	CHAR str[STR_LENGTH + 1];
+	BYTE num;
 	
-
 	InitAsyncUart(BAUD_9600);
+	ReadStr(str, STR_LENGTH);
+	Print("\n");
 	
-	//Print("123456789ABCDEF\n");
-	
-	for (;;)
+	if(strlen(str)!=2 || !IsHex(str[0]) || !IsHex(str[1]))  
 	{
-		ReadStr(str, 9);
-		Print(str);		
-	
-		//WriteUartAsync(c);	
-		//WriteUartAsync(_i2hex[c & 0x0f]);
+		Print("Error in input\n");
+		return;
 	}
+	
+	num = (HexVal(str[0]) << 4) + HexVal(str[1]);
+	
+	PrintDec(num);
+	Print("\n");
 }
 
 VOID main()
 {	
 	EnableAllIntrs();	
-	//WriteLed(IE);
-	
-	Part1();
+		
+	switch (ReadDip())
+	{
+		case PART1_SWITCH:
+			for (;;) Part1();
+		break;
+		
+		case PART2_SWITCH:
+			for (;;) Part2();
+		break;
+	}	
 }
