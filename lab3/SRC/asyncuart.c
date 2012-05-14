@@ -4,29 +4,32 @@
 PRIVATE Fifo RxFifo, TxFifo; 
 PRIVATE BOOL TransferNow = FALSE;
 
+PRIVATE BYTE cnt = 0;
 PRIVATE VOID UartInterruptHandler()
 {
-	BYTE tx;
-
+	FifoReadStatus r;
+	
 	if (RI) 
 	{
-		TryWriteFifo(&RxFifo, SBUF);
 		RI = 0;
+		TryWriteFifo(&RxFifo, SBUF);
 	}
 	
 	if (TI)
 	{		
+		TI = 0;
+	
 		TransferNow = TRUE;
-		if (TryReadFifo(&TxFifo, &tx)) 
+		r = TryReadFifo(&TxFifo);
+		
+		if (!FIFO_READ_STATUS_IS_EMPTY(r)) 
 		{
-			SBUF = tx;
+			SBUF = FIFO_READ_STATUS_BYTE(r);
 		}
 		else 
 		{
 			TransferNow = FALSE;
 		}
-		
-		TI = 0;
 	}	
 }
 
@@ -51,12 +54,12 @@ PRIVATE BOOL TryWriteUart(CHAR c)
 	}
 }
 
-PRIVATE BOOL TryReadUart(CHAR *c)
+PRIVATE FifoReadStatus TryReadUart()
 {
-	BOOL result;
+	FifoReadStatus result;
 	
 	ES = 0;
-	result = TryReadFifo(&RxFifo, c);
+	result = TryReadFifo(&RxFifo);
 	ES = 1;
 	
 	return result;
@@ -79,10 +82,12 @@ VOID WriteUartAsync(CHAR c)
 
 CHAR ReadUartAsync()
 {
-	CHAR c;
-	while(!TryReadUart(&c));
+	FifoReadStatus r;
+	do {
+		r = TryReadUart();
+	} while (FIFO_READ_STATUS_IS_EMPTY(r));
 		
-	return c;
+	return FIFO_READ_STATUS_BYTE(r);
 }
 
 

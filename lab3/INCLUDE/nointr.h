@@ -11,6 +11,8 @@ __bit _testea_() __naked;
 __bit _testea_();
 #endif
 
-#define NOINTR(code) { __bit __ea__ = _testea_(); { code ; } EA = __ea__; }
+//#define NOINTR(code) { __bit __ea__ = _testea_(); { code ; } EA = __ea__; }
+#define NOINTR(code) { __bit __ea__ = EA; { code ; } EA = __ea__; }
+
 
 #endif /* _NOINTR_H_ */

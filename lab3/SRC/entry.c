@@ -12,35 +12,64 @@
 
 CONST CHAR _i2hex[] = "0123456789ABCDEF";
 
-#define K_ENTER 0x0D
 
 VOID Print(CHAR *s)
 {
 	while (*s) WriteUartAsync(*s++);
 }
 
+#define K_ENTER 0x0D
+#define K_BKSPACE 0x08
+
+
+VOID ReadStr(CHAR *str, SIZE maxlen)
+{
+	SIZE cnt = 0;
+	
+	do {
+		CHAR c = ReadUartAsync();
+		
+		if (c == K_ENTER) 
+		{
+			break;
+		}
+		else if (c == K_BKSPACE && cnt)
+		{
+			str--;
+			cnt--;
+			
+			Print("\b \b");
+		}
+		else
+		{
+			*str++ = c;
+			cnt++;
+			
+			WriteUartAsync(c);
+		}
+		
+	} while (cnt <= maxlen);
+
+	*str = '\0';
+}
+
+
 VOID Part1()
 {
+	CHAR str[10];
 	BYTE cnt = 0x00;
+	
 
 	InitAsyncUart(BAUD_9600);
 	
-	Print("123456789ABCDEF\n");
+	//Print("123456789ABCDEF\n");
 	
 	for (;;)
 	{
-		CHAR c = ReadUartAsync();
-		//WriteLed(c);
-		
-		//WriteUartAsync(cnt+'0');
+		ReadStr(str, 9);
+		Print(str);		
 	
-		/*
-		WriteUartSync(c);
-		WriteUartSync(c - 1);
-		WriteUartSync(c - 2);
-		*/
-	
-		WriteUartAsync('H');	
+		//WriteUartAsync(c);	
 		//WriteUartAsync(_i2hex[c & 0x0f]);
 	}
 }

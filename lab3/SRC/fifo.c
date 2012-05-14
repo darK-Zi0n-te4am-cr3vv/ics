@@ -3,18 +3,20 @@
 
 #define FIFO_NEXT(b) ((b + 1) & FIFO_PTR_MASK)
 
-BOOL TryReadFifo(Fifo *fifo, BYTE *b)
+FifoReadStatus TryReadFifo(Fifo *fifo)
 {
+	BYTE b; 
+	
 	if (fifo->WPtr == fifo->RPtr) 
 	{
 		fifo->IsEmpty = TRUE;
-		return FALSE;
+		return FIFO_READ_STATUS(FALSE, 0x00);
 	}		
 		
-	*b = fifo->Buffer[fifo->RPtr];
+	b = fifo->Buffer[fifo->RPtr];
 	fifo->RPtr = FIFO_NEXT(fifo->RPtr);
 	
-	return TRUE;
+	return FIFO_READ_STATUS(TRUE, b);
 }
 
 BOOL TryWriteFifo(Fifo *fifo, BYTE b)
