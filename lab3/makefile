@@ -62,6 +62,7 @@ $(SRC_DIR)/asyncuart.c \
 $(SRC_DIR)/fifo.c \
 $(SRC_DIR)/strio.c \
 $(SRC_DIR)/nointr.c \
+$(SRC_DIR)/except.c \
 $(SRC_DIR)/xdata.c 
 
 LIST_OBJ = $(LIST_SRC:.c=.rel)

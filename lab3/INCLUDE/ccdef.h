@@ -7,7 +7,7 @@
 #include "types.h"
 #include "nointr.h"
 
-#define STRUCT(name, fields) typedef struct  fields  name
+#define STRUCT(name, fields) struct __ ## name ; typedef struct __ ## name name ; struct __ ## name fields
 #define FUNCPTR(rtype, name, args) typedef rtype (* name ) args
 
 #define EXTERN extern 

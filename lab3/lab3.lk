@@ -26,7 +26,9 @@ SRC/uart.rel
 SRC/syncuart.rel
 SRC/asyncuart.rel
 SRC/fifo.rel
+SRC/strio.rel
 SRC/nointr.rel
+SRC/except.rel
 SRC/xdata.rel
 
 -e
